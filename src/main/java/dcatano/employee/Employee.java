@@ -16,7 +16,7 @@ public class Employee {
     private final EmployeeStatus status;
     private final Double salary;
 
-    protected Employee(String name, String position, Double salary) {
+    public Employee(String name, String position, Double salary) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.position = position;
