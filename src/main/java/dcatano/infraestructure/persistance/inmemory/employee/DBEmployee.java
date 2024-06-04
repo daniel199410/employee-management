@@ -5,6 +5,7 @@ import dcatano.employee.EmployeeStatus;
 import dcatano.office.Office;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 public record DBEmployee(UUID id, String name, String position, LocalDate hiringDate, Office office,
@@ -20,5 +21,29 @@ public record DBEmployee(UUID id, String name, String position, LocalDate hiring
             employee.getStatus(),
             employee.getSalary()
         );
+    }
+
+    public Employee toDomain() {
+        return new Employee(
+            this.id(),
+            this.name(),
+            this.position(),
+            this.hiringDate(),
+            this.office(),
+            this.status(),
+            this.salary()
+        );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DBEmployee that)) return false;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

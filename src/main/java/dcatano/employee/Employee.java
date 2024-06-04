@@ -1,12 +1,14 @@
 package dcatano.employee;
 
 import dcatano.office.Office;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
+@AllArgsConstructor
 public class Employee {
     private final UUID id;
     private final String name;
@@ -25,6 +27,4 @@ public class Employee {
         this.status = EmployeeStatus.ENABLED;
         this.salary = salary;
     }
-
-
 }
