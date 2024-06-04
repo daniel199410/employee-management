@@ -2,6 +2,8 @@ package dcatano.infraestructure.presentation.console;
 
 import dcatano.employee.creation.EmployeeCreator;
 import dcatano.employee.creation.EmployeeCreatorDTO;
+import dcatano.employee.finder.EmployeeFinder;
+import dcatano.employee.finder.EmployeeFinderDTO;
 import dcatano.employee.update.EmployeeUpdater;
 import dcatano.infraestructure.presentation.Presentation;
 
@@ -14,6 +16,7 @@ import java.util.UUID;
 public class Console implements Presentation {
     private final EmployeeCreator employeeCreator = new EmployeeCreator();
     private final EmployeeUpdater employeeUpdater = new EmployeeUpdater();
+    private final EmployeeFinder employeeFinder = new EmployeeFinder();
 
     @Override
     public void execute() {
@@ -30,12 +33,32 @@ public class Console implements Presentation {
             if (options.get() == Options.UPDATE_POSITION) {
                 presentEmployeeUpdate();
             }
+            if (options.get() == Options.LIST_ALL_EMPLOYEES) {
+                presentListAllEmployees();
+            }
             if (options.get() == Options.EXIT) {
                 System.out.println("Adiós");
                 break;
             }
             System.out.println();
         } while (true);
+    }
+
+    private void presentListAllEmployees() {
+        System.out.print("A continuación se presentan los empleados registrados: ");
+        List<EmployeeFinderDTO> employees = employeeFinder.findAll();
+        if(employees.isEmpty()) {
+            System.out.println("-- No se han encontrado empleados --");
+            return;
+        }
+        employees.forEach(e -> {
+            System.out.println();
+            System.out.printf("id: %s%n", e.id());
+            System.out.printf("Nombre: %s%n", e.name());
+            System.out.printf("Fecha de contratación: %s%n", e.hiringDate());
+            System.out.printf("Posición: %s%n", e.position());
+            System.out.printf("Salario: $%s%n", e.salary());
+        });
     }
 
     private void presentEmployeeUpdate() {

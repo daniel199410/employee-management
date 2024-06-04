@@ -4,6 +4,7 @@ import dcatano.employee.Employee;
 import dcatano.employee.EmployeeRepository;
 import dcatano.infraestructure.persistance.inmemory.InMemoryPersistence;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,5 +25,10 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
             .filter(e -> e.id().equals(employeeId))
             .findFirst()
             .map(DBEmployee::toDomain);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return InMemoryPersistence.getEmployees().stream().map(DBEmployee::toDomain).toList();
     }
 }
