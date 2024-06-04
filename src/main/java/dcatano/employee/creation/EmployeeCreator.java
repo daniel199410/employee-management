@@ -22,11 +22,11 @@ public class EmployeeCreator {
         if(!validationErrors.isEmpty()) {
             return validationErrors.stream().map(ValidationError::reason).toList();
         }
-        Employee employee = employeeCreatorDTO.toEmployee();
         Optional<Office> office = officeRepository.findOne();
         if(office.isEmpty()) {
             return List.of("No se han encontrado oficinas");
         }
+        Employee employee = employeeCreatorDTO.toEmployee(office.get());
         employeeRepository.save(employee);
         return Collections.emptyList();
     }

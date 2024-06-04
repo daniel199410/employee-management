@@ -7,6 +7,8 @@ import dcatano.employee.finder.EmployeeFinderDTO;
 import dcatano.employee.finder.FinderFilter;
 import dcatano.employee.update.EmployeeUpdater;
 import dcatano.infraestructure.presentation.Presentation;
+import dcatano.office.Office;
+import dcatano.office.finder.OfficeFinder;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Console implements Presentation {
     private final EmployeeCreator employeeCreator = new EmployeeCreator();
     private final EmployeeUpdater employeeUpdater = new EmployeeUpdater();
     private final EmployeeFinder employeeFinder = new EmployeeFinder();
+    private final OfficeFinder officeFinder = new OfficeFinder();
 
     @Override
     public void execute() {
@@ -40,12 +43,29 @@ public class Console implements Presentation {
             if (options.get() == Options.LIST_FILTERED_EMPLOYEES) {
                 presentListFilteredEmployees();
             }
+            if (options.get() == Options.FIND_EMPLOYEE_OFFICE) {
+                presentEmployeeOffice();
+            }
             if (options.get() == Options.EXIT) {
                 System.out.println("Adiós");
                 break;
             }
             System.out.println();
         } while (true);
+    }
+
+    private void presentEmployeeOffice() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingresa el id del empleado: ");
+        UUID uuid = UUID.fromString(scanner.nextLine());
+        Optional<Office> office = officeFinder.findByUserId(uuid);
+        if(office.isEmpty()) {
+            System.err.print("No se encontrado la oficina o el usuario");
+            return;
+        }
+        System.out.println("-- Oficina: --");
+        System.out.printf("Nombre: %s%n", office.get().name());
+        System.out.printf("Ciudad: %s%n", office.get().city());
     }
 
     private void presentListFilteredEmployees() {
