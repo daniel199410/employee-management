@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EmployeeFinder {
     private final EmployeeRepository employeeRepository = new InMemoryEmployeeRepository();
-    public List<EmployeeFinderDTO> findAll() {
-        return employeeRepository.findAll().stream().map(EmployeeFinderDTO::fomDomain).toList();
+    public List<EmployeeFinderDTO> findAll(FinderFilter filter) {
+        return employeeRepository.findAll(filter).stream().map(EmployeeFinderDTO::fomDomain).toList();
     }
 }

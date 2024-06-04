@@ -2,11 +2,13 @@ package dcatano.infraestructure.persistance.inmemory.employee;
 
 import dcatano.employee.Employee;
 import dcatano.employee.EmployeeRepository;
+import dcatano.employee.finder.FinderFilter;
 import dcatano.infraestructure.persistance.inmemory.InMemoryPersistence;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class InMemoryEmployeeRepository implements EmployeeRepository {
     @Override
@@ -28,7 +30,28 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findAll() {
-        return InMemoryPersistence.getEmployees().stream().map(DBEmployee::toDomain).toList();
+    public List<Employee> findAll(FinderFilter finderFilter) {
+        return InMemoryPersistence
+            .getEmployees()
+            .stream()
+            .filter(getFilter(finderFilter))
+            .map(DBEmployee::toDomain)
+            .toList();
+    }
+
+    private Predicate<? super DBEmployee> getFilter(FinderFilter filter) {
+        return (Predicate<DBEmployee>) dbEmployee -> {
+            if (filter == null) {
+                return true;
+            }
+            boolean valid = true;
+            if (filter.id() != null) {
+                valid = filter.id().equals(dbEmployee.id());
+            }
+            if (filter.position() != null) {
+                valid = filter.position().equals(dbEmployee.position());
+            }
+            return valid;
+        };
     }
 }

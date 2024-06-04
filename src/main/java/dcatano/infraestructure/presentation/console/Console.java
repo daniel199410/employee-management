@@ -4,6 +4,7 @@ import dcatano.employee.creation.EmployeeCreator;
 import dcatano.employee.creation.EmployeeCreatorDTO;
 import dcatano.employee.finder.EmployeeFinder;
 import dcatano.employee.finder.EmployeeFinderDTO;
+import dcatano.employee.finder.FinderFilter;
 import dcatano.employee.update.EmployeeUpdater;
 import dcatano.infraestructure.presentation.Presentation;
 
@@ -34,7 +35,10 @@ public class Console implements Presentation {
                 presentEmployeeUpdate();
             }
             if (options.get() == Options.LIST_ALL_EMPLOYEES) {
-                presentListAllEmployees();
+                presentListAllEmployees(null);
+            }
+            if (options.get() == Options.LIST_FILTERED_EMPLOYEES) {
+                presentListFilteredEmployees();
             }
             if (options.get() == Options.EXIT) {
                 System.out.println("Adiós");
@@ -44,9 +48,28 @@ public class Console implements Presentation {
         } while (true);
     }
 
-    private void presentListAllEmployees() {
+    private void presentListFilteredEmployees() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Filtrar por id? (Y o N): ");
+        boolean byId = scanner.nextLine().equalsIgnoreCase("Y");
+        UUID uuid = null;
+        if(byId) {
+            System.out.print("Ingrese el id a filtrar: ");
+            uuid = UUID.fromString(scanner.nextLine());
+        }
+        System.out.print("Filtrar por posición? (Y o N): ");
+        boolean byPosition = scanner.nextLine().equalsIgnoreCase("Y");
+        String position = null;
+        if(byPosition) {
+            System.out.print("Ingrese la posición a filtrar: ");
+            position = scanner.nextLine();
+        }
+        presentListAllEmployees(new FinderFilter(uuid, position));
+    }
+
+    private void presentListAllEmployees(FinderFilter finderFilter) {
         System.out.print("A continuación se presentan los empleados registrados: ");
-        List<EmployeeFinderDTO> employees = employeeFinder.findAll();
+        List<EmployeeFinderDTO> employees = employeeFinder.findAll(finderFilter);
         if(employees.isEmpty()) {
             System.out.println("-- No se han encontrado empleados --");
             return;
