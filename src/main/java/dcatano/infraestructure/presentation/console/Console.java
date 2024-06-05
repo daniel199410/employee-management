@@ -26,37 +26,31 @@ public class Console implements Presentation {
 
     @Override
     public void execute() {
-        Optional<Options> options;
-        System.out.println("Hola a tu empresa");
+        Optional<Options> option;
+        System.out.println("Hola!");
         do {
-            options = selectOption();
-            if(options.isEmpty()) {
+            option = selectOption();
+            if(option.isEmpty()) {
                 continue;
             }
-            if (options.get() == Options.CREATE_USER) {
-                presentEmployeeCreation();
-            }
-            if (options.get() == Options.UPDATE_POSITION) {
-                presentEmployeeUpdate();
-            }
-            if (options.get() == Options.LIST_ALL_EMPLOYEES) {
-                presentListAllEmployees(null);
-            }
-            if (options.get() == Options.LIST_FILTERED_EMPLOYEES) {
-                presentListFilteredEmployees();
-            }
-            if (options.get() == Options.FIND_EMPLOYEE_OFFICE) {
-                presentEmployeeOffice();
-            }
-            if (options.get() == Options.EMPLOYEE_COUNT_IN_OFFICE) {
-                presentOfficeEmployeeCount();
-            }
-            if (options.get() == Options.EXIT) {
-                System.out.println("Adiós");
-                break;
+            switch (option.get()) {
+                case Options.CREATE_USER -> presentEmployeeCreation();
+                case Options.UPDATE_POSITION -> presentEmployeeUpdate();
+                case Options.LIST_ALL_EMPLOYEES -> presentListAllEmployees(null);
+                case Options.LIST_FILTERED_EMPLOYEES -> presentListFilteredEmployees();
+                case Options.FIND_EMPLOYEE_OFFICE -> presentEmployeeOffice();
+                case Options.EMPLOYEE_COUNT_IN_OFFICE -> presentOfficeEmployeeCount();
+                case Options.EXIT -> {
+                    exit();
+                    return;
+                }
             }
             System.out.println();
         } while (true);
+    }
+
+    private void exit() {
+        System.out.println("Adiós");
     }
 
     private void presentOfficeEmployeeCount() {
@@ -108,7 +102,7 @@ public class Console implements Presentation {
         System.out.print("A continuación se presentan los empleados registrados: ");
         List<EmployeeFinderDTO> employees = employeeFinder.findAll(finderFilter);
         if(employees.isEmpty()) {
-            System.out.println("-- No se han encontrado empleados --");
+            System.err.println("-- No se han encontrado empleados --");
             return;
         }
         employees.forEach(e -> {
@@ -151,10 +145,10 @@ public class Console implements Presentation {
         try {
             return Optional.of(Options.values()[scanner.nextInt() - 1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Selecciona una opción correcta");
+            System.err.println("Selecciona una opción correcta");
             return Optional.empty();
         } catch (InputMismatchException e) {
-            System.out.println("Ingresa los datos correctos");
+            System.err.println("Ingresa los datos correctos");
             return Optional.empty();
         }
     }
