@@ -1,11 +1,14 @@
 package dcatano.infraestructure.presentation.console;
 
+import dcatano.employee.EmployeeRepository;
 import dcatano.employee.creation.EmployeeCreator;
 import dcatano.employee.creation.EmployeeCreatorDTO;
 import dcatano.employee.finder.EmployeeFinder;
 import dcatano.employee.finder.EmployeeFinderDTO;
 import dcatano.employee.finder.FinderFilter;
 import dcatano.employee.update.EmployeeUpdater;
+import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
+import dcatano.infraestructure.persistance.inmemory.office.InMemoryOfficeRepository;
 import dcatano.infraestructure.presentation.Presentation;
 import dcatano.office.Office;
 import dcatano.employee.finder.EmployeeCounter;
@@ -18,8 +21,9 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class Console implements Presentation {
-    private final EmployeeCreator employeeCreator = new EmployeeCreator();
-    private final EmployeeUpdater employeeUpdater = new EmployeeUpdater();
+    EmployeeRepository employeeRepository = new InMemoryEmployeeRepository();
+    private final EmployeeCreator employeeCreator = new EmployeeCreator(employeeRepository, new InMemoryOfficeRepository());
+    private final EmployeeUpdater employeeUpdater = new EmployeeUpdater(employeeRepository);
     private final EmployeeFinder employeeFinder = new EmployeeFinder();
     private final OfficeFinder officeFinder = new OfficeFinder();
     private final EmployeeCounter employeeCounter = new EmployeeCounter();

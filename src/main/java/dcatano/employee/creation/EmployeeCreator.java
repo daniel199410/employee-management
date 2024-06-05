@@ -3,19 +3,19 @@ package dcatano.employee.creation;
 import dcatano.employee.Employee;
 import dcatano.employee.EmployeeRepository;
 import dcatano.employee.ValidationError;
-import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
-import dcatano.infraestructure.persistance.inmemory.office.InMemoryOfficeRepository;
 import dcatano.office.Office;
 import dcatano.office.OfficeRepository;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class EmployeeCreator {
-    private final EmployeeRepository employeeRepository = new InMemoryEmployeeRepository();
-    private final OfficeRepository officeRepository = new InMemoryOfficeRepository();
+    private final EmployeeRepository employeeRepository;
+    private final OfficeRepository officeRepository;
 
     public List<String> create(EmployeeCreatorDTO employeeCreatorDTO) {
         List<ValidationError> validationErrors = validEmployee(employeeCreatorDTO);

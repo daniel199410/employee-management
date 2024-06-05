@@ -2,15 +2,16 @@ package dcatano.employee.update;
 
 import dcatano.employee.Employee;
 import dcatano.employee.EmployeeRepository;
-import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class EmployeeUpdater {
-    private final EmployeeRepository employeeRepository = new InMemoryEmployeeRepository();
+    private final EmployeeRepository employeeRepository;
 
     public List<String> updatePosition(UUID employeeId, String position) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
