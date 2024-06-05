@@ -10,4 +10,5 @@ public interface EmployeeRepository {
     void save(Employee employee);
     Optional<Employee> findById(UUID employeeId);
     List<Employee> findAll(FinderFilter filter);
+    long countByOffice(Integer officeId);
 }

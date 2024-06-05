@@ -8,6 +8,7 @@ import dcatano.employee.finder.FinderFilter;
 import dcatano.employee.update.EmployeeUpdater;
 import dcatano.infraestructure.presentation.Presentation;
 import dcatano.office.Office;
+import dcatano.employee.finder.EmployeeCounter;
 import dcatano.office.finder.OfficeFinder;
 
 import java.util.InputMismatchException;
@@ -21,6 +22,7 @@ public class Console implements Presentation {
     private final EmployeeUpdater employeeUpdater = new EmployeeUpdater();
     private final EmployeeFinder employeeFinder = new EmployeeFinder();
     private final OfficeFinder officeFinder = new OfficeFinder();
+    private final EmployeeCounter employeeCounter = new EmployeeCounter();
 
     @Override
     public void execute() {
@@ -46,12 +48,27 @@ public class Console implements Presentation {
             if (options.get() == Options.FIND_EMPLOYEE_OFFICE) {
                 presentEmployeeOffice();
             }
+            if (options.get() == Options.EMPLOYEE_COUNT_IN_OFFICE) {
+                presentOfficeEmployeeCount();
+            }
             if (options.get() == Options.EXIT) {
                 System.out.println("Adiós");
                 break;
             }
             System.out.println();
         } while (true);
+    }
+
+    private void presentOfficeEmployeeCount() {
+        System.out.println("Ingrese el id de la oficina");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            Integer officeId = scanner.nextInt();
+            long employeeCount = employeeCounter.findByOffice(officeId);
+            System.out.printf("La oficina tiene %d empleados%n", employeeCount);
+        } catch (InputMismatchException e) {
+            System.err.println("El id debe ser un número");
+        }
     }
 
     private void presentEmployeeOffice() {

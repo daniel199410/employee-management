@@ -39,6 +39,11 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
             .toList();
     }
 
+    @Override
+    public long countByOffice(Integer officeId) {
+        return InMemoryPersistence.getEmployees().stream().filter(e -> e.office().id().equals(officeId)).count();
+    }
+
     private Predicate<? super DBEmployee> getFilter(FinderFilter filter) {
         return (Predicate<DBEmployee>) dbEmployee -> {
             if (filter == null) {
