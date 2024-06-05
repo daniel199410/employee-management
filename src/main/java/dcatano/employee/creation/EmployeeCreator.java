@@ -24,7 +24,7 @@ public class EmployeeCreator {
         }
         Optional<Office> office = officeRepository.findOne();
         if(office.isEmpty()) {
-            return List.of("No se han encontrado oficinas");
+            return List.of(Messages.OFFICES_NOT_FOUND.getMessage());
         }
         Employee employee = employeeCreatorDTO.toEmployee(office.get());
         employeeRepository.save(employee);
@@ -34,12 +34,12 @@ public class EmployeeCreator {
     private List<ValidationError> validEmployee(EmployeeCreatorDTO employeeCreatorDTO) {
         List<ValidationError> validationErrors = new LinkedList<>();
         if(Optional.ofNullable(employeeCreatorDTO.name()).orElse("").isEmpty()) {
-            validationErrors.add(new ValidationError("El nombre no puede ser vacío"));
+            validationErrors.add(new ValidationError(Messages.INVALID_NAME.getMessage()));
         }
         if(Optional.ofNullable(employeeCreatorDTO.salary()).isEmpty()) {
-            validationErrors.add(new ValidationError("El salario no puede ser vacío"));
+            validationErrors.add(new ValidationError(Messages.INVALID_SALARY.getMessage()));
         } else if (employeeCreatorDTO.salary() <= 0) {
-            validationErrors.add(new ValidationError("El salario no puede ser negativo"));
+            validationErrors.add(new ValidationError(Messages.NEGATIVE_SALARY.getMessage()));
         }
         return validationErrors;
     }

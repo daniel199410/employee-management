@@ -30,6 +30,6 @@ public class EmployeeUpdater {
         if(optionalEmployee.isPresent()) {
             return Collections.emptyList();
         }
-        return Collections.singletonList("No se ha encontrado el empleado");
+        return Collections.singletonList(Messages.EMPLOYEE_NOT_FOUND.getMessage());
     }
 }

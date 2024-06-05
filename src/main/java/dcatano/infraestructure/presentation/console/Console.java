@@ -31,7 +31,7 @@ public class Console implements Presentation {
     @Override
     public void execute() {
         Optional<Options> option;
-        System.out.println("Hola!");
+        System.out.println(Messages.HELLO.getMessage());
         do {
             option = selectOption();
             if(option.isEmpty()) {
@@ -54,105 +54,105 @@ public class Console implements Presentation {
     }
 
     private void exit() {
-        System.out.println("Adiós");
+        System.out.println(Messages.BYE.getMessage());
     }
 
     private void presentOfficeEmployeeCount() {
-        System.out.println("Ingrese el id de la oficina");
+        System.out.println(Messages.ENTER_OFFICE_ID.getMessage());
         Scanner scanner = new Scanner(System.in);
         try {
             Integer officeId = scanner.nextInt();
             long employeeCount = employeeCounter.findByOffice(officeId);
-            System.out.printf("La oficina tiene %d empleados%n", employeeCount);
+            System.out.printf(Messages.OFFICE_HAS_N_EMPLOYEE.getMessage(), employeeCount);
         } catch (InputMismatchException e) {
-            System.err.println("El id debe ser un número");
+            System.err.println(Messages.INVALID_OFFICE_ID.getMessage());
         }
     }
 
     private void presentEmployeeOffice() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingresa el id del empleado: ");
+        System.out.print(Messages.ENTER_EMPLOYEE_ID.getMessage());
         UUID uuid = UUID.fromString(scanner.nextLine());
         Optional<Office> office = officeFinder.findByUserId(uuid);
         if(office.isEmpty()) {
-            System.err.print("No se encontrado la oficina o el usuario");
+            System.err.print(Messages.OFFICE_OR_USER_NOT_FOUND.getMessage());
             return;
         }
-        System.out.println("-- Oficina: --");
-        System.out.printf("Nombre: %s%n", office.get().name());
-        System.out.printf("Ciudad: %s%n", office.get().city());
+        System.out.println(Messages.OFFICE.getMessage());
+        System.out.printf(Messages.NAME.getMessage(), office.get().name());
+        System.out.printf(Messages.CITY.getMessage(), office.get().city());
     }
 
     private void presentListFilteredEmployees() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Filtrar por id? (Y o N): ");
+        System.out.print(Messages.FILTER_BY_ID.getMessage());
         boolean byId = scanner.nextLine().equalsIgnoreCase("Y");
         UUID uuid = null;
         if(byId) {
-            System.out.print("Ingrese el id a filtrar: ");
+            System.out.print(Messages.ENTER_ID_FILTER.getMessage());
             uuid = UUID.fromString(scanner.nextLine());
         }
-        System.out.print("Filtrar por posición? (Y o N): ");
+        System.out.print(Messages.FILTER_BY_POSITION.getMessage());
         boolean byPosition = scanner.nextLine().equalsIgnoreCase("Y");
         String position = null;
         if(byPosition) {
-            System.out.print("Ingrese la posición a filtrar: ");
+            System.out.print(Messages.ENTER_POSITION_FILTER.getMessage());
             position = scanner.nextLine();
         }
         presentListAllEmployees(new FinderFilter(uuid, position));
     }
 
     private void presentListAllEmployees(FinderFilter finderFilter) {
-        System.out.print("A continuación se presentan los empleados registrados: ");
+        System.out.print(Messages.REGISTERED_EMPLOYEES.getMessage());
         List<EmployeeFinderDTO> employees = employeeFinder.findAll(finderFilter);
         if(employees.isEmpty()) {
-            System.err.println("-- No se han encontrado empleados --");
+            System.err.println(Messages.EMPLOYEES_NOT_FOUND.getMessage());
             return;
         }
         employees.forEach(e -> {
             System.out.println();
-            System.out.printf("id: %s%n", e.id());
-            System.out.printf("Nombre: %s%n", e.name());
-            System.out.printf("Fecha de contratación: %s%n", e.hiringDate());
-            System.out.printf("Posición: %s%n", e.position());
-            System.out.printf("Salario: $%s%n", e.salary());
+            System.out.printf(Messages.ID.getMessage(), e.id());
+            System.out.printf(Messages.NAME.getMessage(), e.name());
+            System.out.printf(Messages.HIRING_DATE.getMessage(), e.hiringDate());
+            System.out.printf(Messages.POSITION.getMessage(), e.position());
+            System.out.printf(Messages.SALARY.getMessage(), e.salary());
         });
     }
 
     private void presentEmployeeUpdate() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingresa el id del empleado: ");
+        System.out.print(Messages.ENTER_EMPLOYEE_ID.getMessage());
         try {
             UUID uuid = UUID.fromString(scanner.nextLine());
-            System.out.print("Ingresa la nueva posición: ");
+            System.out.print(Messages.ENTER_NEW_POSITION.getMessage());
             String position = scanner.nextLine();
             List<String> failedValidations = employeeUpdater.updatePosition(uuid, position);
             if (failedValidations.isEmpty()) {
-                System.out.println("Empleado actualizado exitosamente");
+                System.out.println(Messages.EMPLOYEES_UPDATED.getMessage());
                 return;
             }
-            System.err.println("No se ha podido actualizar el empleado, Razón: ");
+            System.err.println(Messages.EMPLOYEES_NOT_UPDATED.getMessage());
             failedValidations.forEach(v -> System.err.printf("-- %s%n", v));
         } catch (IllegalArgumentException e) {
-            System.err.println("El valor ingresado no es un id válido");
+            System.err.println(Messages.INVALID_ID.getMessage());
         }
 
     }
 
     private Optional<Options> selectOption() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("¿qué deseas hacer?");
+        System.out.println(Messages.HEADER.getMessage());
         for (Options value : Options.values()) {
             System.out.printf("%d. %s%n", value.ordinal() + 1, value.getDescription());
         }
-        System.out.println("Digita el número de la acción que quieres realizar y luego haz enter");
+        System.out.println(Messages.ENTER_ACTION.getMessage());
         try {
             return Optional.of(Options.values()[scanner.nextInt() - 1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Selecciona una opción correcta");
+            System.err.println(Messages.SELECT_CORRECT_OPTION.getMessage());
             return Optional.empty();
         } catch (InputMismatchException e) {
-            System.err.println("Ingresa los datos correctos");
+            System.err.println(Messages.ENTER_CORRECT_DATA.getMessage());
             return Optional.empty();
         }
     }
@@ -160,21 +160,21 @@ public class Console implements Presentation {
     private void presentEmployeeCreation() {
         Scanner scanner = new Scanner(System.in);
         try {
-            System.out.print("Ingresa el nombre: ");
+            System.out.print(Messages.ENTER_NAME.getMessage());
             String name = scanner.nextLine();
-            System.out.print("Ingresa la posición: ");
+            System.out.print(Messages.ENTER_POSITION.getMessage());
             String position = scanner.nextLine();
-            System.out.print("Ingresa el salario: ");
+            System.out.print(Messages.ENTER_SALARY.getMessage());
             Double salary = scanner.nextDouble();
             List<String> failedValidations = employeeCreator.create(new EmployeeCreatorDTO(name, position, salary));
             if (failedValidations.isEmpty()) {
-                System.out.println("Empleado creado exitosamente");
+                System.out.println(Messages.EMPLOYEE_CREATED.getMessage());
                 return;
             }
-            System.err.println("No se ha podido crear el empleado, Razón: ");
+            System.err.println(Messages.EMPLOYEE_NOT_CREATED.getMessage());
             failedValidations.forEach(v -> System.err.printf("-- %s%n", v));
         } catch (InputMismatchException e) {
-            System.err.println("Ingresa los datos correctos");
+            System.err.println(Messages.ENTER_CORRECT_DATA.getMessage());
         }
     }
 }
