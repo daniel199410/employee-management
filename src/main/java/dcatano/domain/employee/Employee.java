@@ -1,6 +1,6 @@
-package dcatano.employee;
+package dcatano.domain.employee;
 
-import dcatano.office.Office;
+import dcatano.domain.office.Office;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,10 +1,12 @@
 package dcatano.employee.creation;
 
+import dcatano.domain.employee.creation.EmployeeCreator;
+import dcatano.domain.employee.creation.EmployeeCreatorDTO;
 import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
 import dcatano.infraestructure.persistance.inmemory.office.InMemoryOfficeRepository;
-import dcatano.office.City;
-import dcatano.office.Office;
-import dcatano.office.OfficeRepository;
+import dcatano.domain.office.City;
+import dcatano.domain.office.Office;
+import dcatano.domain.office.OfficeRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

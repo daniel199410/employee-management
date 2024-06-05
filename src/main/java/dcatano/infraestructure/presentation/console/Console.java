@@ -1,18 +1,18 @@
 package dcatano.infraestructure.presentation.console;
 
-import dcatano.employee.EmployeeRepository;
-import dcatano.employee.creation.EmployeeCreator;
-import dcatano.employee.creation.EmployeeCreatorDTO;
-import dcatano.employee.finder.EmployeeFinder;
-import dcatano.employee.finder.EmployeeFinderDTO;
-import dcatano.employee.finder.FinderFilter;
-import dcatano.employee.update.EmployeeUpdater;
+import dcatano.domain.employee.EmployeeRepository;
+import dcatano.domain.employee.creation.EmployeeCreator;
+import dcatano.domain.employee.creation.EmployeeCreatorDTO;
+import dcatano.domain.employee.finder.EmployeeFinder;
+import dcatano.domain.employee.finder.EmployeeFinderDTO;
+import dcatano.domain.employee.finder.FinderFilter;
+import dcatano.domain.employee.update.EmployeeUpdater;
 import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
 import dcatano.infraestructure.persistance.inmemory.office.InMemoryOfficeRepository;
 import dcatano.infraestructure.presentation.Presentation;
-import dcatano.office.Office;
-import dcatano.employee.finder.EmployeeCounter;
-import dcatano.office.finder.OfficeFinder;
+import dcatano.domain.office.Office;
+import dcatano.domain.employee.finder.EmployeeCounter;
+import dcatano.domain.office.finder.OfficeFinder;
 
 import java.util.InputMismatchException;
 import java.util.List;

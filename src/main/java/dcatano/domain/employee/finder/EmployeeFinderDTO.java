@@ -1,6 +1,6 @@
-package dcatano.employee.finder;
+package dcatano.domain.employee.finder;
 
-import dcatano.employee.Employee;
+import dcatano.domain.employee.Employee;
 
 import java.time.LocalDate;
 

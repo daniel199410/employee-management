@@ -1,8 +1,8 @@
 package dcatano.infraestructure.persistance.inmemory;
 
 import dcatano.infraestructure.persistance.inmemory.employee.DBEmployee;
-import dcatano.office.City;
-import dcatano.office.Office;
+import dcatano.domain.office.City;
+import dcatano.domain.office.Office;
 import lombok.Getter;
 
 import java.util.HashSet;

@@ -1,8 +1,8 @@
-package dcatano.office.finder;
+package dcatano.domain.office.finder;
 
+import dcatano.domain.office.Office;
 import dcatano.infraestructure.persistance.inmemory.office.InMemoryOfficeRepository;
-import dcatano.office.Office;
-import dcatano.office.OfficeRepository;
+import dcatano.domain.office.OfficeRepository;
 
 import java.util.Optional;
 import java.util.UUID;

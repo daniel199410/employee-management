@@ -1,7 +1,7 @@
-package dcatano.employee.update;
+package dcatano.domain.employee.update;
 
-import dcatano.employee.Employee;
-import dcatano.employee.EmployeeRepository;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.employee.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;

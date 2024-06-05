@@ -1,11 +1,11 @@
 package dcatano.infraestructure.persistance.inmemory.office;
 
-import dcatano.employee.Employee;
-import dcatano.employee.EmployeeRepository;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.employee.EmployeeRepository;
 import dcatano.infraestructure.persistance.inmemory.InMemoryPersistence;
 import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
-import dcatano.office.Office;
-import dcatano.office.OfficeRepository;
+import dcatano.domain.office.Office;
+import dcatano.domain.office.OfficeRepository;
 
 import java.util.Optional;
 import java.util.Set;

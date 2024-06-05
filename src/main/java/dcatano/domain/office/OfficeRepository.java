@@ -1,4 +1,4 @@
-package dcatano.office;
+package dcatano.domain.office;
 
 import java.util.Optional;
 import java.util.UUID;

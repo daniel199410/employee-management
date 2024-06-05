@@ -1,6 +1,6 @@
-package dcatano.employee;
+package dcatano.domain.employee;
 
-import dcatano.employee.finder.FinderFilter;
+import dcatano.domain.employee.finder.FinderFilter;
 
 import java.util.List;
 import java.util.Optional;

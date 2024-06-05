@@ -1,11 +1,12 @@
 package dcatano.employee.update;
 
-import dcatano.employee.Employee;
-import dcatano.employee.EmployeeRepository;
-import dcatano.employee.EmployeeStatus;
-import dcatano.employee.finder.FinderFilter;
-import dcatano.office.City;
-import dcatano.office.Office;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.employee.EmployeeRepository;
+import dcatano.domain.employee.EmployeeStatus;
+import dcatano.domain.employee.finder.FinderFilter;
+import dcatano.domain.employee.update.EmployeeUpdater;
+import dcatano.domain.office.City;
+import dcatano.domain.office.Office;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

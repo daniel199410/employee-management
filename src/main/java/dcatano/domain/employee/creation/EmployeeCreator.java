@@ -1,10 +1,10 @@
-package dcatano.employee.creation;
+package dcatano.domain.employee.creation;
 
-import dcatano.employee.Employee;
-import dcatano.employee.EmployeeRepository;
-import dcatano.employee.ValidationError;
-import dcatano.office.Office;
-import dcatano.office.OfficeRepository;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.employee.EmployeeRepository;
+import dcatano.domain.employee.ValidationError;
+import dcatano.domain.office.Office;
+import dcatano.domain.office.OfficeRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;

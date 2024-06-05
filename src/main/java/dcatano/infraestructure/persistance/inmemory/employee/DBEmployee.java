@@ -1,8 +1,8 @@
 package dcatano.infraestructure.persistance.inmemory.employee;
 
-import dcatano.employee.Employee;
-import dcatano.employee.EmployeeStatus;
-import dcatano.office.Office;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.employee.EmployeeStatus;
+import dcatano.domain.office.Office;
 
 import java.time.LocalDate;
 import java.util.Objects;

@@ -1,7 +1,7 @@
-package dcatano.employee.creation;
+package dcatano.domain.employee.creation;
 
-import dcatano.employee.Employee;
-import dcatano.office.Office;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.office.Office;
 
 public record EmployeeCreatorDTO(String name, String position, Double salary) {
     public Employee toEmployee(Office office) {

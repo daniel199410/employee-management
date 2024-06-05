@@ -1,4 +1,4 @@
-package dcatano.office;
+package dcatano.domain.office;
 
 public enum City {
     BEIJING,

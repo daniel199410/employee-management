@@ -1,4 +1,4 @@
-package dcatano.employee.finder;
+package dcatano.domain.employee.finder;
 
 import java.util.UUID;
 

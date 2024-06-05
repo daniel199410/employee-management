@@ -1,4 +1,4 @@
-package dcatano.employee.update;
+package dcatano.domain.employee.update;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

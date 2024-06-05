@@ -1,6 +1,6 @@
-package dcatano.employee.finder;
+package dcatano.domain.employee.finder;
 
-import dcatano.employee.EmployeeRepository;
+import dcatano.domain.employee.EmployeeRepository;
 import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRepository;
 
 public class EmployeeCounter {

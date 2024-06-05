@@ -1,8 +1,8 @@
 package dcatano.infraestructure.persistance.inmemory.employee;
 
-import dcatano.employee.Employee;
-import dcatano.employee.EmployeeRepository;
-import dcatano.employee.finder.FinderFilter;
+import dcatano.domain.employee.Employee;
+import dcatano.domain.employee.EmployeeRepository;
+import dcatano.domain.employee.finder.FinderFilter;
 import dcatano.infraestructure.persistance.inmemory.InMemoryPersistence;
 
 import java.util.List;
