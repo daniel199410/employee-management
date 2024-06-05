@@ -7,10 +7,12 @@ import dcatano.infraestructure.persistance.inmemory.employee.InMemoryEmployeeRep
 import dcatano.domain.office.Office;
 import dcatano.domain.office.OfficeRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class InMemoryOfficeRepository implements OfficeRepository {
     private final EmployeeRepository employeeRepository = new InMemoryEmployeeRepository();
@@ -21,7 +23,9 @@ public class InMemoryOfficeRepository implements OfficeRepository {
         if(offices.isEmpty()) {
             return Optional.empty();
         }
-        return offices.stream().filter(o -> o.id().equals(ThreadLocalRandom.current().nextInt(0, offices.size()))).findFirst();
+        List<Office> officeList = new ArrayList<>(offices.stream().toList());
+        Collections.shuffle(officeList);
+        return officeList.stream().findFirst();
     }
 
     @Override

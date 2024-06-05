@@ -15,9 +15,9 @@ public class InMemoryPersistence {
     static final Set<DBEmployee> employees = new HashSet<>();
 
     public static void initDB() {
-        offices.add(new Office(1, "name", City.BEIJING));
-        offices.add(new Office(2, "name", City.MEDELLIN));
-        offices.add(new Office(3, "name", City.PARIS));
-        offices.add(new Office(4, "name", City.SAO_PAULO));
+        offices.add(new Office(1, "Recursos Humanos", City.BEIJING));
+        offices.add(new Office(2, "Finanzas", City.MEDELLIN));
+        offices.add(new Office(3, "Marketing", City.PARIS));
+        offices.add(new Office(4, "Administración", City.SAO_PAULO));
     }
 }

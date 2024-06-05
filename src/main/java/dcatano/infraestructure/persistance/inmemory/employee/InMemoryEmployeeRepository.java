@@ -14,7 +14,6 @@ public class InMemoryEmployeeRepository implements EmployeeRepository {
     @Override
     public void save(Employee employee) {
         DBEmployee dbEmployee = DBEmployee.fromDomain(employee);
-        System.out.println(dbEmployee.id());
         InMemoryPersistence.getEmployees().remove(dbEmployee);
         InMemoryPersistence.getEmployees().add(dbEmployee);
     }
